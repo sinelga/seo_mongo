@@ -5,13 +5,7 @@ angular.module('4FiFipornoDesk').controller("ArchiveCtrl", ["$scope", "$resource
 		// setup we need to do all of the ususal operations.
 //		$httpProvider.defaults.headers.set = { 'My-Header' : 'value' }
 	
-		var Book = $resource("http://localhost\\:9000/books/:id", {id: '@id'}, {
-			
-			'query1': {method: 'GET',
-				isArray: true,
-				
-				headers: { 'something': 'anything' }
-			}
+		var Book = $resource("http://104.236.237.125\\:9000/books/:id", {id: '@id'}, {
 			
 			
 		});
