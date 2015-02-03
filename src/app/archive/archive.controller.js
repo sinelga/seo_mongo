@@ -20,8 +20,7 @@ angular.module('4FiFipornoDesk').controller("ArchiveCtrl",
 				Blog.get({
 					id : blog.id
 				}, function(data) {
-					
-					
+										
 					$scope.selected = data;
 				});
 
@@ -31,6 +30,7 @@ angular.module('4FiFipornoDesk').controller("ArchiveCtrl",
 				
 				$scope.edit =true;
 				add = true;
+				$scope.blog = $scope.selected;
 
 			};
 			
@@ -72,14 +72,25 @@ angular.module('4FiFipornoDesk').controller("ArchiveCtrl",
 			} else if (update === true) {
 				
 				update = false;
-				console.log(blog.id);
-				var blogtosearch = blog;
+				var id_selected = blog.id;
 				
 				blog.$save(function() {
 					
 					$scope.edit =false;
 //					$scope.selected = null;
-					$scope.blogs = Blog.query();
+					$scope.blogs = Blog.query(function() {
+						
+						
+						Blog.get({
+							id : id_selected
+						}, function(data) {
+												
+							$scope.selected = data;
+						});
+						
+							
+					}
+					);
 					
 									
 				});				
