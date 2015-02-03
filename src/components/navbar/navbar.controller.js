@@ -8,6 +8,13 @@ angular.module('4FiFipornoDesk')
     	
     	$state.go("home");
     }
-    
+    $scope.goabout = function() {
+    	
+    	$state.go("about");
+    }
+    $scope.gocontact = function() {
+    	
+    	$state.go("contact");
+    } 
     
   });
