@@ -13,20 +13,24 @@
   
   <div class="container">
   
-  				<ul class="nav nav-pills nav-stacked">
-					<li  ng-repeat="b in blogs">
-						<h2>{{b.title}}</h2>
-						<img alt="" ng-src="{{b.imglink}}">
-						{{b.contents}}
-						
-					</li>
-				</ul>  
+  
+  		<div class="media"ng-repeat="b in blogs" >
+  <div class="media-left">
+    <a href="#">
+      
+      <img alt="" ng-src="{{b.imglink}}">
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">{{b.title}}</h4>
+    {{b.contents}}
+  </div>
+</div>
+  
   
   </div>
   
   
-  
-
   <div class="row">
     <div class="col-sm-6 col-md-4" ng-repeat="awesomeThing in awesomeThings | orderBy:'rank'">
       <div class="thumbnail">

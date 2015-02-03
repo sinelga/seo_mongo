@@ -70,7 +70,7 @@
 		
 		<div ng-if="edit == true" > 
 		
-		 <form>
+		 <form style="margin-left:15px">
     		Title: <input type="text"  ng-model="blog.title" /><br />
     		Author : <input type="text" ng-model="blog.author" /><br />
     		<textarea style="width:500px" ng-model="blog.contents"></textarea><br />    	
@@ -81,9 +81,16 @@
  			Tags: <input type="text"  style="width:500px" ng-model="blog.tags"  /><br />
  	 	
  	 		<br />
-    		<p><input type="submit" ng-click="insert(blog)" value="Save" /></p>
-    		<input type="submit" ng-click="cancel()" value="Cancel" />
-    		    		
+ 	 		<button class="btn btn-danger"  ng-click="insert(blog)">
+					<i class="fa fa-trash-o"></i> Submit
+			</button>
+		
+			<button class="btn btn-primary " ng-click="cancel()">
+					<i class="fa fa-pencil"></i> Cancel
+			</button>
+			
+ 	 		
+
   		</form>
   		
   		</div>

@@ -77,7 +77,6 @@ angular.module('4FiFipornoDesk').controller("ArchiveCtrl",
 				blog.$save(function() {
 					
 					$scope.edit =false;
-//					$scope.selected = null;
 					$scope.blogs = Blog.query(function() {
 						
 						
