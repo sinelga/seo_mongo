@@ -72,14 +72,15 @@ angular.module('4FiFipornoDesk').controller("ArchiveCtrl",
 			} else if (update === true) {
 				
 				update = false;
-				console.log(blog.title);
+				console.log(blog.id);
+				var blogtosearch = blog;
 				
 				blog.$save(function() {
 					
 					$scope.edit =false;
 //					$scope.selected = null;
-					$scope.blog = Blog.query();
-//					$scope.selected = null;
+					$scope.blogs = Blog.query();
+					
 									
 				});				
 				
