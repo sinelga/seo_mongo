@@ -1,89 +1,111 @@
-'use strict';	
+'use strict';
 
-angular.module('4FiFipornoDesk').controller("ArchiveCtrl", ["$scope", "$resource", function($scope, $resource){
-		// I designed the backend to play nicely with angularjs so this is all the
-		// setup we need to do all of the ususal operations.
-//		$httpProvider.defaults.headers.set = { 'My-Header' : 'value' }
-	
-		var Book = $resource("http://104.236.237.125\\:9000/books/:id", {id: '@id'}, {
+angular.module('4FiFipornoDesk').controller("ArchiveCtrl",
+		[ "$scope", "$resource", function($scope, $resource) {
+
+			var Blog = $resource("http://localhost\\:9000/blogs/:id", {
+				id : '@id'
+			}, {});
+
+			$scope.selected = null;
+			$scope.edit = false;
+			var update = false;
+			var add = false;
+			$scope.blogs = Blog.query();
 			
+
+			$scope.get = function(blog) {
+				// Passing parameters to Book calls will become arguments if
+				// we haven't defined it as part of the path (we did with id)
+				Blog.get({
+					id : blog.id
+				}, function(data) {
+					
+					
+					$scope.selected = data;
+				});
+
+			};
+
+			$scope.add = function() {
+				
+				$scope.edit =true;
+				add = true;
+
+			};
 			
-		});
+			$scope.update = function(blog) {
 
-		$scope.selected = null;
-		$scope.books = Book.query();
-
-
-		$scope.get = function(book){
-			// Passing parameters to Book calls will become arguments if
-			// we haven't defined it as part of the path (we did with id)
-			Book.get({id: book.id}, function(data) {
-	
-				$scope.selected =data;
-			});
+				$scope.edit =true;				
+				$scope.blog = blog;
+				update = true;
+				
+			};
+			
 						
-		};
+			$scope.insert = function(blog) {
 
-		$scope.add = function() {
-			// I was lazy with the user input.
-			var title = prompt("Enter the book's title.");
-			if(title == null){
-				return;
-			}
-			var author = prompt("Enter the book's author.");
-			if(author == null){
-				return;
-			}
-			// Creating a blank book object means you can still $save
-			var newBook = new Book();
-			newBook.title = title;
-			newBook.author = author;
-			newBook.$save(function(){
-				$scope.books = Book.query();
-//				$scope.selected =newBook;
 				
-			});
-			
+				if (add === true) {
+					
+					add = false;
+				
+					var newBlog = new Blog();
+				
+					newBlog.title = blog.title;
+					newBlog.author = blog.author;
+					newBlog.contents = blog.contents;
+					newBlog.permanentlink  = blog.permanentlink;
+					newBlog.imglink  = blog.imglink;
+					newBlog.extlink = blog.extlink;
+					newBlog.keywords  = blog.keywords;
+					newBlog.tags = blog.tags;
 
-		};
-
-		$scope.update = function(book) {
-
-			var title = prompt("Enter a new title", book.title);
-			if(title == null) {
-				return;
-			}
-			var author = prompt("Enter a new author", book.author);
-			if(author == null) {
-				return;
-			}
-			book.title = title;
-			book.author = author;
-			// Noticed I never created a new Book()
-
-			var id = book.id;
+				
+					newBlog.$save(function(){
+						$scope.blogs = Blog.query();
+						$scope.edit =false;
 						
-			book.$save(function(){
-				$scope.books = Book.query();
-												
-				var updatedBook = new Book();
-				updatedBook.title = title;
-				updatedBook.author = author;
-				updatedBook.id =id;
+						
+					});
 				
-				$scope.selected =updatedBook; 
+			} else if (update === true) {
 				
+				update = false;
+				console.log(blog.title);
 				
-			});
-
-		};
-		
-		$scope.remove = function(book){
+				blog.$save(function() {
+					
+					$scope.edit =false;
+//					$scope.selected = null;
+					$scope.blog = Blog.query();
+//					$scope.selected = null;
+									
+				});				
+				
+			}
+				
+								
+			};
 			
-			$scope.selected.$delete(function(){
-				$scope.books = Book.query();
+
+			$scope.remove = function(blog) {
+
+				$scope.selected.$delete(function() {
+					$scope.blogs = Blog.query();
+					$scope.selected = null;
+				})
+			}
+			
+			$scope.cancel= function() {
+				
+				$scope.edit =false;
 				$scope.selected = null;
-			})
-		}
-		
-	}]);
+				update = false;
+				add = false;
+				
+			}
+			
+			
+
+		} ]);

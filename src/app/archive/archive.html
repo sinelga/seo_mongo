@@ -1,16 +1,45 @@
-
+	<div ng-include="'components/navbar/navbar.html'"></div>
 	<div class="jumbotron">
+	
+		<div class="row" >
+			<div class="col-sm-10">
+				<h1>My Blog</h1>
+			</div>
+			<div class="col-sm-2 well">
+		
+		<p>	
 		<button class="btn btn-primary pull-right" ng-click="add()">
-			<i class="fa fa-plus"></i> Add book
+			<i class="fa fa-plus"></i> Add Blog			
 		</button>
-		<h1>My Bookshelf</h1>
+		</p>
+		</br>
+		</br>
+		<p ng-show="selected">	
+		<button class="btn btn-primary pull-right" ng-click="update(selected)">
+					<i class="fa fa-pencil"></i> Update this blog
+		</button>
+		</p>
+		<p ng-show="selected">
+		<button class="btn btn-danger pull-right" ng-show="selected" ng-click="remove(selected)">
+					<i class="fa fa-trash-o"></i> Remove this blog
+		</button>
+		<p>				
+			
+			</div>
+		
+		</div>
+				
+		
 	</div>
-	<div class="container-fluid">
-		<div class="row">
+			
+	<!-- <div class="container-fluid"> -->
+		<!-- <div ng-if= "edit == false" > -->
+		<div ng-show="!edit" class="ng-hide">
+		<div class="row" >
 			<div class="col-sm-3 well">
-				<h3>Books</h3>
+				<h3>Blogs</h3>
 				<ul class="nav nav-pills nav-stacked">
-					<li ng-class="{active: b.title == selected.title}" ng-repeat="b in books">
+					<li ng-class="{active: b.title == selected.title}" ng-repeat="b in blogs">
 						<a href="" ng-click="get(b)">{{b.title}}</a>
 					</li>
 				</ul>
@@ -20,16 +49,45 @@
 				<dl class="dl-horizontal">
 					<dt>Author:</dt>
 					<dd>{{selected.author}}</dd>
+					<dt>Pubdate:</dt>
+					<dd>{{selected.pubdate | date:'medium'}}</dd>
+					<dt>Contents:</dt>
+					<dd>{{selected.contents}}</dd>
+					<dt>Permanentlink:</dt>
+					<dd>{{selected.permanentlink}}</dd>
+					<dt>ImgLink:</dt>
+					<dd>{{selected.imglink}}</dd>
+					<dt>ExtLink:</dt>
+					<dd>{{selected.extlink}}</dd>
+					<dt>Keywords:</dt>
+					<dd>{{selected.keywords}}</dd>
+					<dt>Tags:</dt>
+					<dd>{{selected.tags}}</dd>
+										
 				</dl>
 			</div>
-			<div class="col-sm-3" ng-show="selected">
-				<button class="btn btn-primary form-control" ng-click="update(selected)">
-					<i class="fa fa-pencil"></i> Update this book
-				</button>
-				<button class="btn btn-danger form-control" ng-click="remove(selected)">
-					<i class="fa fa-trash-o"></i> Remove this book
-				</button>
 			</div>
 		</div>
-	</div>
-<!-- <script src="http://code.angularjs.org/1.2.10/angular-resource.min.js"></script> -->
+		
+		
+		<div ng-if="edit == true" > 
+		
+		 <form>
+    		Title: <input type="text"  ng-model="blog.title" /><br />
+    		Author : <input type="text" ng-model="blog.author" /><br />
+    		<textarea style="width:500px" ng-model="blog.contents"></textarea><br />    	
+    		Permanentlink: <input type="text" style="width:500px" ng-model="blog.permanentlink"  /><br />
+ 			Imglink: <input type="text" style="width:500px" ng-model="blog.imglink"  /><br />
+ 			Extlink: <input type="text"  style="width:500px" ng-model="blog.extlink"  /><br />
+ 			Keywords: <input type="text"  style="width:500px"ng-model="blog.keywords"  /><br />
+ 			Tags: <input type="text"  style="width:500px" ng-model="blog.tags"  /><br />
+ 	 	
+ 	 		<br />
+    		<p><input type="submit" ng-click="insert(blog)" value="Save" /></p>
+    		<input type="submit" ng-click="cancel()" value="Cancel" />
+    		    		
+  		</form>
+  		
+  		</div>
+		
+	<!-- </div> -->
